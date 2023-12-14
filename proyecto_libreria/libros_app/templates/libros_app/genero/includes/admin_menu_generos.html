@@ -1,0 +1,18 @@
+{% load static %}
+<div class="row g-0 gx-5 align-items-end">
+  <div class="col text-start text-lg-end animated slideInRight" data-wow-delay="0.1s">
+    <ul class="nav nav-pills d-inline-flex justify-content-end mb-5">
+      {% if request.user.is_staff %}
+        <li class="nav-item me-2">
+          <a class="btn btn-outline-primary" href="{% url 'libros_app:generos' %}">Listar</a>
+        </li>
+        <li class="nav-item me-2">
+          <a class="btn btn-outline-primary" href="{% url 'libros_app:genero_agregar' %}">Agregar</a>
+        </li>
+      {% endif %}
+      <li class="nav-item me-0">
+        <a class="btn btn-outline-primary" href="{% url 'libros_app:generos_filtrar' %}">Filtrar</a>
+      </li>
+    </ul>
+  </div>
+</div>

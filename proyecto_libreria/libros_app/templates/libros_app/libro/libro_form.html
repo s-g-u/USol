@@ -1,0 +1,40 @@
+{% extends 'libros_app/base.html' %}
+
+{% load static %}
+
+{% block title %}
+  Agregar libros
+{% endblock %}
+
+{% block subMenu %}
+  <div class="row g-0 gx-5 align-items-end">
+    <div class="col text-start text-lg-end animated slideInRight" data-wow-delay="0.1s">
+      <ul class="nav nav-pills d-inline-flex justify-content-end mb-5">
+        {% if request.user.is_staff %}
+          <li class="nav-item me-2">
+            <a class="btn btn-outline-primary" href="{% url 'libros_app:libros' %}">Listar</a>
+          </li>
+          <li class="nav-item me-2">
+            <a class="btn btn-outline-primary active" href="{% url 'libros_app:libro_agregar' %}">Agregar</a>
+          </li>
+        {% endif %}
+        <li class="nav-item me-0">
+          <a class="btn btn-outline-primary" href="{% url 'libros_app:libros_filtrar' %}">Filtrar</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+{% endblock %}
+
+{% block content %}
+  <div class="container-xxl py-3">
+    <div class="container">
+      <h1>Agregar libro</h1>
+      <form action="" method="post" class="formulario" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <input type="submit" class="btn btn-primary py-2 px-5 me-3" style="width: 100%; margin-top:10px;" value="Agregar libro" />
+      </form>
+    </div>
+  </div>
+{% endblock %}

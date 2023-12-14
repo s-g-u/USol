@@ -1,0 +1,69 @@
+{% extends 'libros_app/base.html' %}
+
+{% block title %}
+  Filtrar editorial
+{% endblock %}
+
+{% block subMenu %}
+  <div class="row g-0 gx-5 align-items-end">
+    <div class="col text-start text-lg-end animated slideInRight" data-wow-delay="0.1s">
+      <ul class="nav nav-pills d-inline-flex justify-content-end mb-5">
+        {% if request.user.is_staff %}
+          <li class="nav-item me-2">
+            <a class="btn btn-outline-primary" href="{% url 'libros_app:editoriales' %}">Listar</a>
+          </li>
+          <li class="nav-item me-2">
+            <a class="btn btn-outline-primary" href="{% url 'libros_app:editorial_agregar' %}">Agregar</a>
+          </li>
+        {% endif %}
+        <li class="nav-item me-0">
+          <a class="btn btn-outline-primary active" href="{% url 'libros_app:editoriales_filtrar' %}">Filtrar</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+{% endblock %}
+
+{% block content %}
+  <title>Filtrar</title>
+  <div class="container-xxl py-3">
+    <div class="container">
+      <h1>Filtrar editoriales</h1>
+
+      <form method="get">
+        {% csrf_token %}
+
+        <div class="formulario">
+          {% for field in filter.form %}
+            {{ field.label_tag }}
+            {{ field }}
+          {% endfor %}
+
+          <button type="submit" class="btn btn-primary py-2 px-5 me-3" style="width: 100%; margin-top:10px;" style="margin-top: 10px;">Filter</button>
+        </div>
+      </form>
+    </div>
+
+    <div class="container">
+      <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">nombre</th>
+            <th scope="col">historia</th>
+            <th scope="col">año de fundacion</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for editorial in filter.qs %}
+            <tr>
+              <th scope="row">{{ forloop.counter }}</th>
+              <td>{{ editorial.nombre }}</td>
+              <td>{{ editorial.historia }}</td>
+              <td>{{ editorial.ano }}</td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+{% endblock %}

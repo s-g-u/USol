@@ -1,0 +1,21 @@
+{% extends 'libros_app/base.html' %}
+{% load static %}
+
+{% block title %}
+  Eliminar Autor
+{% endblock %}
+
+{% block content %}
+  {% include 'libros_app/autor/includes/admin_menu_autores.html' %}
+  <div class="container-xxl py-3">
+    <div class="container">
+      <h1>Eliminar autores</h1>
+      <form method="post">
+        {% csrf_token %}
+        <p>¿Esta seguro que quiere eliminar al autor "{{ object }}"?</p>
+        {% comment %} {{ form }} {% endcomment %}
+        <input type="submit" value="Confirmar" />
+      </form>
+    </div>
+  </div>
+{% endblock %}

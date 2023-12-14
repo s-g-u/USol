@@ -1,0 +1,36 @@
+{% extends 'libros_app/base.html' %}
+
+{% load static %}
+
+{% block title %}
+  Autor.nombre
+{% endblock %}
+
+{% block content %}
+  {% include 'libros_app/autor/includes/admin_menu_autores.html' %}
+
+  <div class="container-xxl py-5">
+    <div class="container">
+      <div class="row g-5 align-items-start">
+        <div class="col-lg-6 animated fadeIn" data-wow-delay="0.1s">
+          <div class="property-item rounded about-img position-relative overflow-hidden p-5 pe-0">
+            {% if autor.foto %}
+              <img class="img-fluid imagen-detalle" src="{{ autor.foto.url }}" />
+            {% else %}
+              <img class="img-fluid imagen-detalle" src="{% static 'libros_app/images/usuarionodisponible.png' %}" alt="" />
+            {% endif %}
+          </div>
+        </div>
+        <div class="col-lg-6 animated fadeIn" data-wow-delay="0.5s">
+          <h1 class="mb-4">{{ autor.nombre }} {{ autor.Apellido }}</h1>
+          <p class="mb-4">
+            <b>Biografia:</b> {{ autor.biografia }}
+          </p>
+          <p class="mb-4">
+            <b>Fecha de nacimiento:</b> {{ autor.fecha_nacimiento }}
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}

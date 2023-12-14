@@ -1,0 +1,63 @@
+{% extends 'libros_app/base.html' %}
+
+{% load static %}
+
+{% block title %}
+  Editoriales
+{% endblock %}
+
+{% block subMenu %}
+  <div class="row g-0 gx-5">
+    <div class="col text-start text-lg-end animated slideInRight" data-wow-delay="0.1s">
+      <ul class="nav nav-pills d-inline-flex justify-content-end mb-5">
+        {% if request.user.is_staff %}
+          <li class="nav-item me-2">
+            <a class="btn btn-outline-primary active" href="{% url 'libros_app:editoriales' %}">Listar</a>
+          </li>
+          <li class="nav-item me-2">
+            <a class="btn btn-outline-primary" href="{% url 'libros_app:editorial_agregar' %}">Agregar</a>
+          </li>
+        {% endif %}
+        <li class="nav-item me-0">
+          <a class="btn btn-outline-primary" href="{% url 'libros_app:editoriales_filtrar' %}">Filtrar</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+{% endblock %}
+
+{% block content %}
+  <div class="container-xxl py-3">
+    <div class="container">
+      <h1>Editorial</h1>
+      {% if editorial_list %}
+        <div class="row align-items-end">
+          {% for editorial in editorial_list %}
+            <div class="col-lg-4 col-md-6 animated fadeInUp">
+              <div class="property-item rounded overflow-hidden">
+                <div class="position-relative overflow-hidden centrar-items">
+                  {% if editorial.foto %}
+                    <a href="{% url 'libros_app:editorial_ver_detalles' editorial.id %}"><img class="img-fluid imagen" src="{{ editorial.foto.url }}" alt="{{ editorial.foto.url }}" alt="" /></a>
+                  {% else %}
+                    <a href="{% url 'libros_app:editorial_ver_detalles' editorial.id %}"><img class="img-fluid imagen" src="{% static 'libros_app/images/noimagendisponible.png' %}" alt="" /></a>
+                  {% endif %}
+                </div>
+                <div class="p-5 pb-5">
+                  {% if request.user.is_staff %}
+                    <div class="" style="float :right ">
+                      <a class="btn btn-outline-primary" href="{% url 'libros_app:editorial_actualizar' editorial.id %}">Editar</a>
+                      <a class="btn btn-outline-primary" href="{% url 'libros_app:editorial_eliminar' editorial.id %}">Eliminar</a>
+                    </div>
+                  {% endif %}
+                  <a class="d-block h5 mb-2" href="">{{ editorial.nombre }}</a>
+                </div>
+              </div>
+            </div>
+          {% endfor %}
+        </div>
+      {% else %}
+        <p class="card-text">No hay ninguna editorial por el momento, vuelva pronto, lo estamos esperando!</p>
+      {% endif %}
+    </div>
+  </div>
+{% endblock %}

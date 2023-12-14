@@ -1,0 +1,36 @@
+{% extends 'libros_app/base.html' %}
+
+{% load static %}
+
+{% block title %}
+  editorial.nombre
+{% endblock %}
+
+{% block content %}
+  {% include 'libros_app/editorial/includes/admin_menu_editoriales.html' %}
+
+  <div class="container-xxl py-5">
+    <div class="container">
+      <div class="row g-5 align-items-start">
+        <div class="col-lg-6 animated fadeIn" data-wow-delay="0.1s">
+          <div class="property-item rounded about-img position-relative overflow-hidden p-5 pe-0">
+            {% if editorial.foto %}
+              <img class="img-fluid imagen-detalle" src="{{ editorial.foto.url }}" />
+            {% else %}
+              <img class="img-fluid imagen-detalle" src="{% static 'libros_app/images/noimagendisponible.png' %}" alt="" />
+            {% endif %}
+          </div>
+        </div>
+        <div class="col-lg-6 animated fadeIn" data-wow-delay="0.5s">
+          <h1 class="mb-4">{{ editorial.nombre }}</h1>
+          <p class="mb-4">
+            <b>Historia:</b> {{ editorial.historia }}
+          </p>
+          <p class="mb-4">
+            <b>Año de fundacion:</b> {{ editorial.ano }}
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}

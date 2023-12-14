@@ -1,0 +1,33 @@
+{% extends 'libros_app/base.html' %}
+
+{% load static %}
+
+{% block title %}
+  Modificar editorial
+{% endblock %}
+
+{% block content %}
+  {% include 'libros_app/editorial/includes/admin_menu_editoriales.html' %}
+  <div class="container-xxl py-3">
+    <div class="container">
+      <h1>Editar editorial</h1>
+
+      {% if 'ok' in request.GET %}
+        <p class="alert alert-info">Editorial modificado correctamente</p>
+      {% endif %}
+
+      <form action="" method="post" class="formulario" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form.as_p }}
+
+        {% if editorial.foto %}
+          <img class="img-fluid imagen" src="{{ editorial.foto.url }}" />
+        {% else %}
+          <img class="img-fluid imagen" src="{% static 'libros_app/images/noimagendisponible.png' %}" alt="" />
+        {% endif %}
+
+        <input type="submit" class="btn btn-primary py-2 px-5 me-3" style="width: 100%; margin-top:10px;" value="Modificar Editorial" />
+      </form>
+    </div>
+  </div>
+{% endblock %}

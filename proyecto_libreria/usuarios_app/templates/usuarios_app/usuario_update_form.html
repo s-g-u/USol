@@ -1,0 +1,35 @@
+{% extends 'libros_app/base.html' %}
+{% load static %}
+
+{% block title %}
+  Modificar foto usuario
+{% endblock %}
+
+{% block content %}
+  <div class="container-xxl py-3">
+    <div class="d-flex justify-content-center">
+      <div class="row align-items-center">
+        <div class="col wow fadeIn" data-wow-delay="0.1s">
+          {% if 'ok' in request.GET %}
+            <p class="alert alert-info">Foto de perfil modificada correctamente</p>
+          {% endif %}
+
+          <form action="" method="post" class="formulario" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{ form.as_p }}
+
+            <div>
+              {% if usuario.foto_perfil %}
+                <img class="img-fluid imagen-detalle" src="{{ usuario.foto_perfil.url }}" alt="" />
+              {% else %}
+                <img class="img-fluid imagen-detalle" src="{% static 'libros_app/images/portadanodisponible.jpg' %}" alt="" />
+              {% endif %}
+            </div>
+
+            <input type="submit" class="btn btn-primary py-2 px-5 me-3" style="width: 100%; margin-top:10px;" value="Modificar mi foto de perfil" />
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}

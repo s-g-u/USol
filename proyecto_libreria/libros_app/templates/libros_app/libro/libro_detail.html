@@ -1,0 +1,43 @@
+{% extends 'libros_app/base.html' %}
+
+{% load static %}
+
+{% block title %}
+  libro.nombre
+{% endblock %}
+
+{% block content %}
+  {% include 'libros_app/libro/includes/admin_menu_libros.html' %}
+
+  <div class="container-xxl py-5">
+    <div class="container">
+      <div class="row g-5 align-items-start">
+        <div class="col-lg-6 animated fadeIn" data-wow-delay="0.1s">
+          <div class="property-item rounded about-img position-relative overflow-hidden p-5 pe-0">
+            {% if libro.portada %}
+              <img class="img-fluid imagen-detalle" src="{{ libro.portada.url }}" />
+            {% else %}
+              <img class="img-fluid imagen-detalle" src="{% static 'libros_app/images/portadanodisponible.jpg' %}" alt="" />
+            {% endif %}
+          </div>
+        </div>
+        <div class="col-lg-6 animated fadeIn" data-wow-delay="0.5s">
+          <h1 class="mb-4">{{ libro.nombre }}</h1>
+          <p class="mb-4">
+            <b>Sinopsis:</b> {{ libro.sinopsis }}
+          </p> <p class="mb-4">
+            <b>Autores:</b> {{ libro.get_autores }}
+          </p> <p class="mb-4">
+            <b>Generos:</b> {{ libro.get_generos }}
+          </p> <p class="mb-4">
+            <b>Editorial:</b> {{ libro.editorial }}
+          </p> <p class="mb-4">
+            <b>Año de publicacion:</b> {{ libro.ano_publicacion }}
+          </p> <p class="mb-4">
+            <b>Rating:</b> {{ libro.estrellas }}
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}

@@ -1,0 +1,67 @@
+{% extends 'libros_app/base.html' %}
+
+{% load static %}
+
+{% block title %}
+  Libros
+{% endblock %}
+
+{% block subMenu %}
+  <div class="row g-0 gx-5">
+    <div class="col text-start text-lg-end animated slideInRight" data-wow-delay="0.1s">
+      <ul class="nav nav-pills d-inline-flex justify-content-end mb-5">
+        {% if request.user.is_staff %}
+          <li class="nav-item me-2">
+            <a class="btn btn-outline-primary active" href="{% url 'libros_app:libros' %}">Listar</a>
+          </li>
+          <li class="nav-item me-2">
+            <a class="btn btn-outline-primary" href="{% url 'libros_app:libro_agregar' %}">Agregar</a>
+          </li>
+        {% endif %}
+        <li class="nav-item me-0">
+          <a class="btn btn-outline-primary" href="{% url 'libros_app:libros_filtrar' %}">Filtrar</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+{% endblock %}
+
+{% block content %}
+  <div class="container-xxl py-3">
+    <div class="container">
+      <h1>Libros</h1>
+      {% if libro_list %}
+        <div class="row">
+          {% for libro in libro_list %}
+            <div class="col-lg-4 col-md-6 animated fadeInUp">
+              <div class="property-item rounded overflow-hidden">
+                <div class="position-relative overflow-hidden centrar-items">
+                  {% if libro.portada %}
+                    <a href="{% url 'libros_app:libro_ver_detalles' libro.id %}"><img class="img-fluid imagen" src="{{ libro.portada.url }}" alt="{{ libro.portada.url }}" /></a>
+                  {% else %}
+                    <a href="{% url 'libros_app:libro_ver_detalles' libro.id %}"><img class="img-fluid imagen" src="{% static 'libros_app/images/portadanodisponible.jpg' %}" alt="" /></a>
+                  {% endif %}
+
+                  {% if libro.ano_publicacion > 2020 %}
+                    <div class="bg-primary rounded text-white position-absolute start-0 top-0 m-0 py-1 px-3">Nuevo</div>
+                  {% endif %}
+                </div>
+                <div class="p-5 pb-5">
+                  {% if request.user.is_staff %}
+                    <div class="" style="float :right ">
+                      <a class="btn btn-outline-primary" href="{% url 'libros_app:libro_actualizar' libro.id %}">Editar</a>
+                      <a class="btn btn-outline-primary" href="{% url 'libros_app:libro_eliminar' libro.id %}">Eliminar</a>
+                    </div>
+                  {% endif %}
+                  <a class="d-block h5 mb-2" href="">{{ libro.nombre }}</a>
+                </div>
+              </div>
+            </div>
+          {% endfor %}
+        </div>
+      {% else %}
+        <p class="card-text">No hay ningun libro por el momento, vuelva pronto, lo estamos esperando!</p>
+      {% endif %}
+    </div>
+  </div>
+{% endblock %}

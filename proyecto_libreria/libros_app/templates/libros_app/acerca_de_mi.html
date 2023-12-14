@@ -1,0 +1,27 @@
+{% extends 'libros_app/base.html' %}
+
+{% load static %}
+
+{% block title %}
+  Inicio
+{% endblock %}
+
+<!-- Acerca de mi -->
+
+{% block content %}
+  <div class="container-xxl py-3">
+    <div class="d-flex justify-content-center">
+      <div class="row align-items-center">
+        <div class="col">
+          <h1 class="display-5 animated fadeIn mb-4">Sobre mi</h1>
+          <h5>Estudiante <span class="text-primary">de ingeniería en informática.</span></h5>
+          <p>Mi nombre es Sol, tengo 20 años y soy estudiante de ingeniería en informática, estoy interesada en el desarrollo web, principalmente en el back end.</p>
+          <p>
+            Me capacité con un curso obteniendo conocimientos de <span>DJANGO</span>, framework de python, CSS, HTML y JavaScript.
+          </p>
+          <p>Me encantaría tener mis primeras experiencias laborales pronto, y seguir aprendiendo sobre los temas mencionados anteriormente.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}
